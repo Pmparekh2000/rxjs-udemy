@@ -98,10 +98,10 @@ export class AboutComponent implements OnInit {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-  //   interval1$.subscribe(val => {
-  //     console.log('stream 3 ' + val);
-  //   });
-  // }
+    //   interval1$.subscribe(val => {
+    //     console.log('stream 3 ' + val);
+    //   });
+    // }
 
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -109,10 +109,34 @@ export class AboutComponent implements OnInit {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-    const click$ = fromEvent(document, 'click');
-    click$.subscribe(evt => {
-      console.log(evt);
-    });
+    // const click$ = fromEvent(document, 'click');
+    // click$.subscribe(evt => {
+    //   console.log(evt);
+    // });
 
-  }
+// -------------------------------------------------------------------------------------------------------------------
+
+  // Protocols that subscribe follow
+  // 1.) They will never emit values from stream after completion or after getting error or after getting unsbscribed
+  // This is called as subscriber's aggrement
+  // We can ubscribe from the subscriber at any moment of time.
+  // An example of unscription is below.
+
+// -------------------------------------------------------------------------------------------------------------------
+
+
+    // const interval2$ = timer(3000, 1000);
+    // const x = interval2$.subscribe(
+    //   evt => console.log(evt),
+    //   err => console.log(err),
+    //   () => console.log('completed')
+    // );
+    // setTimeout(() => {
+    //   x.unsubscribe();
+    // }, 8000);
+
+    }
+
+
+
 }
