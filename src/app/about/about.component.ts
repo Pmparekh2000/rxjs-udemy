@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { interval, timer, fromEvent } from 'rxjs';
+import { interval, timer, Observable, noop } from 'rxjs';
+import { createHttpObservable } from '../common/util';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'about',
@@ -135,8 +137,6 @@ export class AboutComponent implements OnInit {
     //   x.unsubscribe();
     // }, 8000);
 
-    }
-
-
+  }
 
 }
