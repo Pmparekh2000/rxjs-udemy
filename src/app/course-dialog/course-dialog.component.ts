@@ -38,6 +38,13 @@ export class CourseDialogComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+      // So for continous saving and drafting of values
+      // from the form. The form provides an observable
+      this.form.valueChanges.subscribe(val => {
+        console.log(val);
+      });
+      // valueChanges observable is a good example of stream of values
+      
 
 
 

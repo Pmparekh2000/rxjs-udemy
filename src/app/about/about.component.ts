@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { interval, timer, Observable, noop } from 'rxjs';
+import { interval, timer, Observable, noop, of, concat } from 'rxjs';
 import { createHttpObservable } from '../common/util';
 import { map } from 'rxjs/operators';
 
@@ -136,6 +136,20 @@ export class AboutComponent implements OnInit {
     // setTimeout(() => {
     //   x.unsubscribe();
     // }, 8000);
+
+    const source1$ = of(1, 2, 3);
+    // of function is used for defining any type of observables
+    const source2$ = of(4, 5, 6);
+    // Now after decalring two observables we would like to combine those values emmited by them
+    // But only after the first observable completes we would like to emit the values from the second obsevable
+    const source3$ = of(7, 8, 9);
+
+    const result$ = concat(source1$, source2$, source3$);
+    result$.subscribe(console.log);
+    // So the key notion of concatination is the concept of completion
+    // So if the observable is never completed no new observable would be subscribed
+    // So here if instead of "of" we would have used interval stream which keeps on emitting values continously
+    // Then source1$ and source3$ would never be subscribed and hence would never be used
 
   }
 
