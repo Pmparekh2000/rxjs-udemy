@@ -50,6 +50,13 @@ export class CourseDialogComponent implements OnInit, AfterViewInit {
         // converting them into an observable
         // subscribing to it
         // and at the end concating it the original observable
+
+        // mergeMap(changes =>
+        //   this.saveCourse(changes)
+        // )
+        // merge map is used if request are to be processed in parallel
+        // but if any network is to be made then concatMap is prefferd instead of mergeMap
+
       )
       .subscribe(changes => {
         // fromPromise is an inbuilt rxjs method that takes a promise and creates an rxjs observable
@@ -80,6 +87,11 @@ export class CourseDialogComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
 
+      fromEvent(this.saveButton.nativeElement, 'click')
+      .pipe(
+        exhaustMap(() => this.saveCourse(this.form.value))
+      )
+      .subscribe();
 
     }
 

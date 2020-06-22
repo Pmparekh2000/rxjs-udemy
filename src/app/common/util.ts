@@ -3,9 +3,12 @@ import { Observable } from 'rxjs';
 export function createHttpObservable(url: string) {
   return Observable.create(observer => {
 
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     // fetch can also be called as an api
     // fetch is also a promise
-    fetch(url)
+    fetch(url, {signal})
       .then(response => {
         return response.json();
         // .json() method returns a "Promise".
@@ -24,6 +27,8 @@ export function createHttpObservable(url: string) {
   // fetch('../.../...') is a type of promise
   // Now promises are not like observables
   // They start to emit values after as soon as they are created
+
+  return () => controller.abort();
 
   });
   // Observable.create() is a method that helps us to create observables from scratch

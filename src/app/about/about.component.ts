@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { interval, timer, Observable, noop, of, concat } from 'rxjs';
+import { interval, timer, Observable, noop, of, concat, merge } from 'rxjs';
 import { createHttpObservable } from '../common/util';
 import { map } from 'rxjs/operators';
 
@@ -137,20 +137,40 @@ export class AboutComponent implements OnInit {
     //   x.unsubscribe();
     // }, 8000);
 
-    const source1$ = of(1, 2, 3);
+    // const source1$ = of(1, 2, 3);
     // of function is used for defining any type of observables
-    const source2$ = of(4, 5, 6);
+    // const source2$ = of(4, 5, 6);
     // Now after decalring two observables we would like to combine those values emmited by them
     // But only after the first observable completes we would like to emit the values from the second obsevable
-    const source3$ = of(7, 8, 9);
+    // const source3$ = of(7, 8, 9);
 
-    const result$ = concat(source1$, source2$, source3$);
-    result$.subscribe(console.log);
+    // const result$ = concat(source1$, source2$, source3$);
+    // result$.subscribe(console.log);
     // So the key notion of concatination is the concept of completion
     // So if the observable is never completed no new observable would be subscribed
     // So here if instead of "of" we would have used interval stream which keeps on emitting values continously
     // Then source1$ and source3$ would never be subscribed and hence would never be used
 
+    // merge example - ideal for performing long running operations in parallel and then getting the results combined
+    // const interval1$ = interval(1000);
+    // const interval2$ = interval1$.pipe(map(val => 10 * val));
+
+    // const result$ = merge(interval1$, interval2$);
+
+    // result$.subscribe(console.log);
+
+    // const interval1$ = interval(1000);
+    // const sub = interval1$.subscribe(console.log);
+    // setTimeout(() => {
+    //   sub.unsubscribe();
+    // }
+    //   , 5000);
+
+    const http$ = createHttpObservable('/api/courses');
+    const sub = http$.subscribe(console.log);
+    setTimeout(() => {
+      sub.unsubscribe();
+    }, 0);
   }
 
 }
