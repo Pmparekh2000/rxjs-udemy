@@ -10,7 +10,11 @@ export function createHttpObservable(url: string) {
     // fetch is also a promise
     fetch(url, {signal})
       .then(response => {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          observer.error('Response failed with status code: ' + response.status);
+        }
         // .json() method returns a "Promise".
       })
       .then(body => {
